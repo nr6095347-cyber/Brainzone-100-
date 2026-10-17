@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rathod Fun Lab</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #101014;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  padding: 22px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #303039;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #a78bfa;
+}
+
+header a {
+  color: white;
+  text-decoration: none;
+}
+
+.hero {
+  padding: 75px 20px 45px;
+  text-align: center;
+}
+
+.tag {
+  display: inline-block;
+  padding: 9px 15px;
+  background: #24202f;
+  color: #c4b5fd;
+  border-radius: 30px;
+  font-size: 13px;
+}
+
+h1 {
+  font-size: clamp(40px, 8vw, 75px);
+  margin: 25px 0 15px;
+  letter-spacing: -3px;
+}
+
+h1 span {
+  color: #a78bfa;
+}
+
+.hero p {
+  color: #aaaab8;
+  line-height: 1.7;
+}
+
+.search {
+  max-width: 550px;
+  margin: 30px auto 0;
+}
+
+.search input {
+  width: 100%;
+  padding: 17px;
+  border: 1px solid #44404f;
+  background: #1b1b23;
+  color: white;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+}
+
+.categories {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+
+.categories button {
+  background: #202028;
+  color: white;
+  border: 1px solid #383842;
+  padding: 10px 17px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.categories button.active,
+.categories button:hover {
+  background: #a78bfa;
+  color: #15121d;
+}
+
+main {
+  padding: 20px 7% 70px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 25px 0;
+}
+
+.section-title p {
+  color: #9999a8;
+  font-size: 13px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: #1b1b23;
+  border: 1px solid #303039;
+  border-radius: 17px;
+  padding: 23px;
+  cursor: pointer;
+  transition: .2s;
+  min-height: 190px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: #a78bfa;
+}
+
+.icon {
+  font-size: 37px;
+  margin-bottom: 18px;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #aaaab8;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.card small {
+  display: inline-block;
+  margin-top: 17px;
+  color: #c4b5fd;
+}
+
+.empty {
+  color: #aaaab8;
+  padding: 30px 0;
+  display: none;
+}
+
+footer {
+  border-top: 1px solid #303039;
+  padding: 30px 15px;
+  text-align: center;
+  color: #888895;
+  font-size: 13px;
+}
+
+footer strong {
+  color: #c4b5fd;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: #000b;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 10;
+}
+
+.modal-box {
+  background: #202028;
+  border: 1px solid #494354;
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+.modal-box h2 {
+  margin: 15px 0;
+}
+
+.modal-box p {
+  color: #c0c0cd;
+  line-height: 1.7;
+}
+
+.modal-box button {
+  background: #a78bfa;
+  border: 0;
+  padding: 12px 20px;
+  border-radius: 9px;
+  margin: 15px 5px 0;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-box .close {
+  background: #383842;
+  color: white;
+}
+
+#playArea {
+  margin-top: 20px;
+  line-height: 1.8;
+}
+
+#playArea button {
+  margin: 5px;
+}
+
+@media(max-width: 500px) {
+  header { padding: 18px 5%; }
+  .logo { font-size: 21px; }
+  main { padding: 15px 5% 50px; }
+  .hero { padding-top: 55px; }
+  .card { min-height: 160px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">RATHOD <span>FUN LAB</span></div>
+  <a href="#experiments">Explore ↗</a>
+</header>
+
+<section class="hero">
+  <div class="tag">✦ YOUR PLAYGROUND FOR CURIOSITY</div>
+
+  <h1>Explore the <span>Unexpected.</span></h1>
+
+  <p>
+    Weird experiments, brain challenges and tiny worlds.<br>
+    Pick something and discover what happens!
+  </p>
+
+  <div class="search">
+    <input
+      id="search"
+      type="search"
+      placeholder="🔍 Search experiments..."
+      oninput="renderCards()"
+    >
+  </div>
+
+  <div class="categories" id="categories"></div>
+</section>
+
+<main id="experiments">
+  <div class="section-title">
+    <h2>Explore Experiments</h2>
+    <p id="count"></p>
+  </div>
+
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">No experiments found. Try another search!</div>
+</main>
+
+<div class="modal" id="modal" onclick="outsideClose(event)">
+  <div class="modal-box">
+    <div class="icon" id="modalIcon">🎮</div>
+    <h2 id="modalTitle">Experiment</h2>
+    <p id="modalDescription"></p>
+    <div id="playArea"></div>
+    <button class="close" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<footer>
+  Made with curiosity by <strong>Rathod Website Wala</strong> ✦
+  <br><br>
+  © <span id="year"></span> Rathod Fun Lab
+</footer>
+
+<script>
+const experiments = [
+  {
+    title: "Spend Virtual Money",
+    icon: "💰",
+    category: "Money",
+    description: "You have ₹10,000. Buy imaginary things and watch your balance!",
+    type: "money"
+  },
+  {
+    title: "IQ Mini Challenge",
+    icon: "🧠",
+    category: "Brain",
+    description: "Can you solve this number puzzle?",
+    type: "iq"
+  },
+  {
+    title: "Color Mixer",
+    icon: "🎨",
+    category: "Creative",
+    description: "Choose a color and paint your mini canvas.",
+    type: "color"
+  },
+  {
+    title: "Reaction Test",
+    icon: "⚡",
+    category: "Brain",
+    description: "Test how quickly you can react.",
+    type: "reaction"
+  },
+  {
+    title: "Lucky Number",
+    icon: "🎲",
+    category: "Random",
+    description: "Generate a random number from 1 to 100.",
+    type: "random"
+  },
+  {
+    title: "Coin Flip",
+    icon: "🪙",
+    category: "Random",
+    description: "Heads or tails? Flip the virtual coin.",
+    type: "coin"
+  },
+  {
+    title: "Space Explorer",
+    icon: "🚀",
+    category: "Science",
+    description: "Discover fun facts about our universe.",
+    type: "space"
+  },
+  {
+    title: "Secret Message",
+    icon: "🔐",
+    category: "Creative",
+    description: "Encode and decode a secret message.",
+    type: "secret"
+  },
+  {
+    title: "Build a Tiny City",
+    icon: "🏙️",
+    category: "Creative",
+    description: "Add buildings to your own tiny city.",
+    type: "city"
+  },
+  {
+    title: "Memory Challenge",
+    icon: "🧩",
+    category: "Brain",
+    description: "Remember the sequence of numbers.",
+    type: "memory"
+  },
+  {
+    title: "Dice Roller",
+    icon: "🎲",
+    category: "Random",
+    description: "Roll a virtual six-sided dice.",
+    type: "dice"
+  },
+  {
+    title: "Time Machine",
+    icon: "⏳",
+    category: "Science",
+    description: "Explore interesting moments in history.",
+    type: "time"
+  }
+];
+
+let activeCategory = "All";
+let money = 10000;
+let cityCount = 0;
+let reactionTimer;
+let reactionStart;
+let reactionWaiting = false;
+
+const categories = [
+  "All", "Brain", "Money", "Creative", "Science", "Random"
+];
+
+function renderCategories() {
+  document.getElementById("categories").innerHTML =
+    categories.map(category => `
+      <button
+        class="${activeCategory === category ? "active" : ""}"
+        onclick="setCategory('${category}')">
+        ${category}
+      </button>
+    `).join("");
+}
+
+function setCategory(category) {
+  activeCategory = category;
+  renderCategories();
+  renderCards();
+}
+
+function renderCards() {
+  const query = document.getElementById("search").value.toLowerCase();
+
+  const list = experiments.filter(item =>
+    (activeCategory === "All" || item.category === activeCategory) &&
+    (item.title.toLowerCase().includes(query) ||
+     item.description.toLowerCase().includes(query) ||
+     item.category.toLowerCase().includes(query))
+  );
+
+  document.getElementById("count").textContent =
+    list.length + " experiences";
+
+  document.getElementById("empty").style.display =
+    list.length ? "none" : "block";
+
+  document.getElementById("grid").innerHTML = list.map(item => `
+    <article class="card" onclick="openExperiment('${item.type}')">
+      <div class="icon">${item.icon}</div>
+      <h3>${item.title}</h3>
+      <p>${item.description}</p>
+      <small>${item.category} · Explore ↗</small>
+    </article>
+  `).join("");
+}
+
+function openExperiment(type) {
+  const item = experiments.find(x => x.type === type);
+  if (!item) return;
+
+  document.getElementById("modalIcon").textContent = item.icon;
+  document.getElementById("modalTitle").textContent = item.title;
+  document.getElementById("modalDescription").textContent = item.description;
+
+  const area = document.getElementById("playArea");
+  area.innerHTML = "";
+
+  if (type === "money") {
+    money = 10000;
+    area.innerHTML = `
+      <h3 id="balance">Balance: ₹${money}</h3>
+      <button onclick="buy(100)">Buy ₹100 item</button>
+      <button onclick="buy(500)">Buy ₹500 item</button>
+      <button onclick="buy(1000)">Buy ₹1,000 item</button>
+    `;
+  }
+
+  if (type === "iq") {
+    area.innerHTML = `
+      <h3>2, 4, 8, 16, ?</h3>
+      <button onclick="answerIQ(20)">20</button>
+      <button onclick="answerIQ(24)">24</button>
+      <button onclick="answerIQ(32)">32</button>
+      <p id="result"></p>
+    `;
+  }
+
+  if (type === "color") {
+    area.innerHTML = `
+      <input type="color" value="#a78bfa"
+        oninput="document.getElementById('paint').style.background=this.value">
+      <div id="paint" style="height:100px;background:#a78bfa;border-radius:12px;margin-top:15px"></div>
+    `;
+  }
+
+  if (type === "reaction") {
+    area.innerHTML = `
+      <button id="react" onclick="reactionClick()">Start Test</button>
+      <p id="reactionResult"></p>
+    `;
+    reactionWaiting = false;
+  }
+
+  if (type === "random") {
+    area.innerHTML = `
+      <button onclick="document.getElementById('randomResult').textContent=Math.floor(Math.random()*100)+1">
+        Generate Number
+      </button>
+      <h2 id="randomResult">?</h2>
+    `;
+  }
+
+  if (type === "coin") {
+    area.innerHTML = `
+      <button onclick="document.getElementById('coinResult').textContent=Math.random()<0.5?'Heads!':'Tails!'">
+        Flip Coin
+      </button>
+      <h2 id="coinResult">🪙</h2>
+    `;
+  }
+
+  if (type === "space") {
+    area.innerHTML = `
+      <p>🌞 The Sun is a star.</p>
+      <p>🌌 Our galaxy is called the Milky Way.</p>
+      <p>🪐 Saturn has a spectacular ring system.</p>
+      <p>🌙 The Moon orbits Earth.</p>
+    `;
+  }
+
+  if (type === "secret") {
+    area.innerHTML = `
+      <input id="secretInput" placeholder="Write your message"
+       style="padding:12px;width:100%;margin:8px 0">
+      <button onclick="encodeMessage()">Encode</button>
+      <button onclick="decodeMessage()">Decode</button>
+      <p id="secretOutput"></p>
+    `;
+  }
+
+  if (type === "city") {
+    cityCount = 0;
+    area.innerHTML = `
+      <div id="city" style="font-size:35px;min-height:60px">🌳</div>
+      <p id="cityCount">Buildings: 0</p>
+      <button onclick="addBuilding('🏠')">Add House</button>
+      <button onclick="addBuilding('🏢')">Add Tower</button>
+      <button onclick="addBuilding('🌳')">Add Tree</button>
+    `;
+  }
+
+  if (type === "memory") {
+    const number = String(Math.floor(1000 + Math.random() * 9000));
+    area.innerHTML = `
+      <h2 id="memoryNumber">${number}</h2>
+      <button onclick="hideMemory()">Hide Number</button>
+      <input id="memoryAnswer" placeholder="Enter the number">
+      <button onclick="checkMemory('${number}')">Check</button>
+      <p id="memoryResult"></p>
+    `;
+  }
+
+  if (type === "dice") {
+    area.innerHTML = `
+      <button onclick="document.getElementById('diceResult').textContent=['⚀','⚁','⚂','⚃','⚄','⚅'][Math.floor(Math.random()*6)]">
+        Roll Dice
+      </button>
+      <h1 id="diceResult">🎲</h1>
+    `;
+  }
+
+  if (type === "time") {
+    area.innerHTML = `
+      <p>🚀 1969: Humans first walked on the Moon.</p>
+      <p>🌐 1989: The World Wide Web was proposed.</p>
+      <p>🤖 2022: ChatGPT was publicly launched.</p>
+    `;
+  }
+
+  document.getElementById("modal").style.display = "flex";
+}
+
+function buy(amount) {
+  if (money < amount) {
+    alert("Not enough virtual money!");
+    return;
+  }
+  money -= amount;
+  document.getElementById("balance").textContent =
+    "Balance: ₹" + money;
+}
+
+function answerIQ(number) {
+  document.getElementById("result").textContent =
+    number === 32 ? "Correct! 🎉" : "Try again! 🤔";
+}
+
+function reactionClick() {
+  const button = document.getElementById("react");
+  const result = document.getElementById("reactionResult");
+
+  if (!reactionWaiting && !reactionTimer) {
+    button.textContent = "Wait for GREEN...";
+    button.style.background = "#d97706";
+    result.textContent = "";
+    reactionWaiting = true;
+
+    reactionTimer = setTimeout(() => {
+      button.textContent = "CLICK NOW!";
+      button.style.background = "#22c55e";
+      reactionStart = performance.now();
+      reactionTimer = null;
+    }, 1500 + Math.random() * 3000);
+
+    return;
+  }
+
+  if (reactionWaiting && reactionTimer) {
+    clearTimeout(reactionTimer);
+    reactionTimer = null;
+    reactionWaiting = false;
+    button.textContent = "Try Again";
+    button.style.background = "#a78bfa";
+    result.textContent = "Too early! Wait for green.";
+    return;
+  }
+
+  if (!reactionWaiting && reactionStart) {
+    const time = Math.round(performance.now() - reactionStart);
+    result.textContent = "Your reaction time: " + time + " ms";
+    reactionStart = null;
+    button.textContent = "Play Again";
+    button.style.background = "#a78bfa";
+  }
+}
+
+function encodeMessage() {
+  const text = document.getElementById("secretInput").value;
+  document.getElementById("secretOutput").textContent =
+    "Encoded: " + btoa(unescape(encodeURIComponent(text)));
+}
+
+function decodeMessage() {
+  try {
+    const text = document.getElementById("secretInput").value;
+    document.getElementById("secretOutput").textContent =
+      "Decoded: " + decodeURIComponent(escape(atob(text)));
+  } catch {
+    document.getElementById("secretOutput").textContent =
+      "Invalid encoded message!";
+  }
+}
+
+function addBuilding(icon) {
+  cityCount++;
+  document.getElementById("city").textContent += icon;
+  document.getElementById("cityCount").textContent =
+    "Buildings: " + cityCount;
+}
+
+function hideMemory() {
+  document.getElementById("memoryNumber").textContent = "????";
+}
+
+function checkMemory(number) {
+  const answer = document.getElementById("memoryAnswer").value;
+  document.getElementById("memoryResult").textContent =
+    answer === number ? "Correct! 🧠🎉" : "Not quite. Try again!";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+
+  if (reactionTimer) {
+    clearTimeout(reactionTimer);
+    reactionTimer = null;
+  }
+
+  reactionWaiting = false;
+  reactionStart = null;
+}
+
+function outsideClose(event) {
+  if (event.target.id === "modal") closeModal();
+}
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+renderCategories();
+renderCards();
+</script>
+
+</body>
+  </html>
